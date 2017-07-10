@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangmeng.ywc.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.xie.test.vo.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goodsNumber" property="goodsnumber" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="packing" property="packing" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="totalQuantity" property="totalquantity" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goodsNumber, name, quality, specifications, packing, material, totalQuantity
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xie.test.vo.Goods" >
+    insert into goods (id, goodsNumber, name, 
+      quality, specifications, packing, 
+      material, totalQuantity)
+    values (#{id,jdbcType=INTEGER}, #{goodsnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{quality,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{packing,jdbcType=VARCHAR}, 
+      #{material,jdbcType=VARCHAR}, #{totalquantity,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xie.test.vo.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsnumber != null" >
+        goodsNumber,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="specifications != null" >
+        specifications,
+      </if>
+      <if test="packing != null" >
+        packing,
+      </if>
+      <if test="material != null" >
+        material,
+      </if>
+      <if test="totalquantity != null" >
+        totalQuantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsnumber != null" >
+        #{goodsnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="packing != null" >
+        #{packing,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="totalquantity != null" >
+        #{totalquantity,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xie.test.vo.Goods" >
+    update goods
+    <set >
+      <if test="goodsnumber != null" >
+        goodsNumber = #{goodsnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="packing != null" >
+        packing = #{packing,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="totalquantity != null" >
+        totalQuantity = #{totalquantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xie.test.vo.Goods" >
+    update goods
+    set goodsNumber = #{goodsnumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=VARCHAR},
+      specifications = #{specifications,jdbcType=VARCHAR},
+      packing = #{packing,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      totalQuantity = #{totalquantity,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

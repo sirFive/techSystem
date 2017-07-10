@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xie.test.dao.IContractDao" >
+  <resultMap id="BaseResultMap" type="com.xie.test.vo.Contract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="VARCHAR" />
+    <result column="unitPrice" property="unitprice" jdbcType="DECIMAL" />
+    <result column="packing" property="packing" jdbcType="VARCHAR" />
+    <result column="plaPro" property="plapro" jdbcType="VARCHAR" />
+    <result column="shipTime" property="shiptime" jdbcType="TIMESTAMP" />
+    <result column="payCondition" property="paycondition" jdbcType="VARCHAR" />
+    <result column="claimant" property="claimant" jdbcType="VARCHAR" />
+    <result column="conNumber" property="connumber" jdbcType="VARCHAR" />
+        <association column="cusDetail" property="customer" javaType="com.xie.test.vo.Customer">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="cusNumber" property="cusnumber" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="constract" property="constract" jdbcType="VARCHAR" />
+	    <result column="grade" property="grade" jdbcType="VARCHAR" />
+	    <result column="conDetail" property="condetail" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, conNumber, cusDetail, goodsName, specifications, quantity, unitPrice, packing, 
+    plaPro, shipTime, payCondition, claimant
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  *from contract,customer
+    where contract.id=customer.id and contract.id = #{id,jdbcType=INTEGER} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xie.test.vo.Contract" >
+    insert into contract (id, conNumber, cusDetail, 
+      goodsName, specifications, quantity, 
+      unitPrice, packing, plaPro, 
+      shipTime, payCondition, claimant
+      )
+    values (#{id,jdbcType=INTEGER}, #{connumber,jdbcType=VARCHAR}, #{cusdetail,jdbcType=VARCHAR}, 
+      #{goodsname,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR}, 
+      #{unitprice,jdbcType=DECIMAL}, #{packing,jdbcType=VARCHAR}, #{plapro,jdbcType=VARCHAR}, 
+      #{shiptime,jdbcType=TIMESTAMP}, #{paycondition,jdbcType=VARCHAR}, #{claimant,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xie.test.vo.Contract" >
+    insert into contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="connumber != null" >
+        conNumber,
+      </if>
+      <if test="cusdetail != null" >
+        cusDetail,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="specifications != null" >
+        specifications,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="unitprice != null" >
+        unitPrice,
+      </if>
+      <if test="packing != null" >
+        packing,
+      </if>
+      <if test="plapro != null" >
+        plaPro,
+      </if>
+      <if test="shiptime != null" >
+        shipTime,
+      </if>
+      <if test="paycondition != null" >
+        payCondition,
+      </if>
+      <if test="claimant != null" >
+        claimant,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="connumber != null" >
+        #{connumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cusdetail != null" >
+        #{cusdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="packing != null" >
+        #{packing,jdbcType=VARCHAR},
+      </if>
+      <if test="plapro != null" >
+        #{plapro,jdbcType=VARCHAR},
+      </if>
+      <if test="shiptime != null" >
+        #{shiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paycondition != null" >
+        #{paycondition,jdbcType=VARCHAR},
+      </if>
+      <if test="claimant != null" >
+        #{claimant,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xie.test.vo.Contract" >
+    update contract
+    <set >
+      <if test="connumber != null" >
+        conNumber = #{connumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cusdetail != null" >
+        cusDetail = #{cusdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null" >
+        unitPrice = #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="packing != null" >
+        packing = #{packing,jdbcType=VARCHAR},
+      </if>
+      <if test="plapro != null" >
+        plaPro = #{plapro,jdbcType=VARCHAR},
+      </if>
+      <if test="shiptime != null" >
+        shipTime = #{shiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paycondition != null" >
+        payCondition = #{paycondition,jdbcType=VARCHAR},
+      </if>
+      <if test="claimant != null" >
+        claimant = #{claimant,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xie.test.vo.Contract" >
+    update contract
+    set conNumber = #{connumber,jdbcType=VARCHAR},
+      cusDetail = #{cusdetail,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      specifications = #{specifications,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      unitPrice = #{unitprice,jdbcType=DECIMAL},
+      packing = #{packing,jdbcType=VARCHAR},
+      plaPro = #{plapro,jdbcType=VARCHAR},
+      shipTime = #{shiptime,jdbcType=TIMESTAMP},
+      payCondition = #{paycondition,jdbcType=VARCHAR},
+      claimant = #{claimant,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

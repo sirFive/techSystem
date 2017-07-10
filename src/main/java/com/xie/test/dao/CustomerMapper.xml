@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xie.test.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.xie.test.vo.Customer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cusNumber" property="cusnumber" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="constract" property="constract" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <collection property="contract" ofType="com.xie.test.vo.Contract">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="conNumber" property="connumber" jdbcType="VARCHAR" />
+	    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+	    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+	    <result column="quantity" property="quantity" jdbcType="VARCHAR" />
+	    <result column="unitPrice" property="unitprice" jdbcType="DECIMAL" />
+	    <result column="packing" property="packing" jdbcType="VARCHAR" />
+	    <result column="plaPro" property="plapro" jdbcType="VARCHAR" />
+	    <result column="shipTime" property="shiptime" jdbcType="TIMESTAMP" />
+	    <result column="payCondition" property="paycondition" jdbcType="VARCHAR" />
+	    <result column="claimant" property="claimant" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cusNumber, name, constract, grade
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xie.test.vo.Customer" >
+    insert into customer (id, cusNumber, name, 
+      constract, grade
+      )
+    values (#{id,jdbcType=INTEGER}, #{cusnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{constract,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xie.test.vo.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cusnumber != null" >
+        cusNumber,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="constract != null" >
+        constract,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cusnumber != null" >
+        #{cusnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="constract != null" >
+        #{constract,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xie.test.vo.Customer" >
+    update customer
+    <set >
+      <if test="cusnumber != null" >
+        cusNumber = #{cusnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="constract != null" >
+        constract = #{constract,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xie.test.vo.Customer" >
+    update customer
+    set cusNumber = #{cusnumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      constract = #{constract,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
